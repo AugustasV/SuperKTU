@@ -1,0 +1,9 @@
+{
+  "name": "superktu",
+  "title": "SuperKTU",
+  "id": "jid1-wb5eyKYVTQKBOQ",
+  "description": "A firefox add-on that improves KTU (Kaunas University of Technology) web pages",
+  "author": "Giedrius Statkevičius (IF-3/10)",
+  "license": "GPL 3.0",
+  "version": "0.1"
+}
