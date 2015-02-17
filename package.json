@@ -29,7 +29,6 @@
 	"title": "Skip",
 	"description": "Students can automatically pass login screens on some pages",
 	"type": "bool",
-	"value": true,
-	"hidden": false
+	"value": true
     }]
 }
