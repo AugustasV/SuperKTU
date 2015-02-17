@@ -1,9 +1,35 @@
 {
-  "name": "superktu",
-  "title": "SuperKTU",
-  "id": "jid1-wb5eyKYVTQKBOQ",
-  "description": "A firefox add-on that improves KTU (Kaunas University of Technology) web pages",
-  "author": "Giedrius Statkevičius (IF-3/10)",
-  "license": "GPL 3.0",
-  "version": "0.1"
+    "name": "superktu",
+    "title": "SuperKTU",
+    "id": "jid1-wb5eyKYVTQKBOQ",
+    "description": "A firefox add-on that improves KTU (Kaunas University of Technology) web pages",
+    "author": "Giedrius Statkevičius (IF-3/10)",
+    "license": "GPL 3.0",
+    "version": "0.1",
+    "preferences": [{
+	"name": "status",
+	"title": "Status",
+	"description": "Are you a student?",
+	"type": "menulist",
+	"value": "S",
+	"hidden": false,
+	"options": [
+	    {
+		"value": "S",
+		"label": "Student"
+	    },
+	    {
+		"value": "O",
+		"label": "Others"
+	    }
+	]
+    },
+    {
+	"name": "skip",
+	"title": "Skip",
+	"description": "Students can automatically pass login screens on some pages",
+	"type": "bool",
+	"value": true,
+	"hidden": false
+    }]
 }
