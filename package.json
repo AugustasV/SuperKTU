@@ -10,19 +10,8 @@
 	"name": "status",
 	"title": "Status",
 	"description": "Are you a student?",
-	"type": "menulist",
-	"value": "S",
-	"hidden": false,
-	"options": [
-	    {
-		"value": "S",
-		"label": "Student"
-	    },
-	    {
-		"value": "O",
-		"label": "Others"
-	    }
-	]
+	"type": "bool",
+	"value": true
     },
     {
 	"name": "skip",
