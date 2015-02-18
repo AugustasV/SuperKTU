@@ -3,10 +3,10 @@ self.port.on("data", function (d) {
 	if (d[1]) {
 	    var el;
 	    switch (d[0]) {
-	    case "S":
+	    case "O":
 		el = document.querySelector('input[class="art-button"]');
 		break;
-	    case "O":
+	    case "S":
 		el = document.querySelector('a[class="art-button"]');
 		break;
 	    }
