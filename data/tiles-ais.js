@@ -7,6 +7,18 @@ self.port.on("load", function (data) {
     tiles = data;
 });
 
+var titles = document.getElementsByTagName(tSelector);
+
+for (var i = 0; i <= numOfTiles; i++)
+    // Left Right Down Up Close
+    titles[i].innerHTML += "\
+" + constructButton(i, 0, "&#9668;") + "\
+" + constructButton(i, 1, "&#9658;") + "\
+" + constructButton(i, 2, "&#9660;") + "\
+" + constructButton(i, 3, "&#9650;") + "\
+" + constructButton(i, 4, "&#10005;") + "\
+";
+
 function checkIfGood(id) {
     if (id < 0 || id > numOfTiles)
 	return false;
@@ -15,7 +27,6 @@ function checkIfGood(id) {
 
 function sendMsg(id, code) {
     var ret;
-    window.alert(id + " " + code);
     switch (code) {
     case 0:
 	ret = left(id);
@@ -28,14 +39,14 @@ function sendMsg(id, code) {
 	    window.alert("sendMsg()::right() failed");
 	break;
     case 2:
-	ret = up(id);
-	if (!ret)
-	    window.alert("sendMsg()::up() failed");
-	break;
-    case 3:
 	ret = down(id);
 	if (!ret)
 	    window.alert("sendMsg()::down() failed");
+	break;
+    case 3:
+	ret = up(id);
+	if (!ret)
+	    window.alert("sendMsg()::up() failed");
 	break;
     case 4:
 	ret = hide(id);
@@ -47,21 +58,10 @@ function sendMsg(id, code) {
 };
 
 function constructButton(id, code, text) {
-    return "<a onclick='window.sendMsg(" + id + ", " + code + ")'> " + text + "</a>";
+    return "<a onclick='window.sendMsg(" + id + ", " + code + ")'>" + text + "</a>";
 }
 
 exportFunction(sendMsg, unsafeWindow, {defineAs: "sendMsg"});
-
-var titles = document.getElementsByTagName(tSelector);
-for (var i = 0; i <= numOfTiles; i++)
-    // Left Right Down Up Close
-    titles[i].innerHTML += "\
-" + constructButton(i, 0, "&#9668;") + "\
-" + constructButton(i, 1, "&#9658;") + "\
-" + constructButton(i, 2, "&#9660;") + "\
-" + constructButton(i, 3, "&#9650;") + "\
-" + constructButton(i, 4, "&#10005;") + "\
-";
 
 /* These functions change page content and update tiles
  * Usually these are called when user clicks something
@@ -70,8 +70,10 @@ function hide(id) {
     var ret = _hideTile(id);
     if (ret) {
 	tiles[id].status = false;
-	self.port.emit("load", ss.storage.tiles);
+	self.port.emit("load", tiles);
+	return true;
     }
+    return false;
 }
 
 function left(id) {
@@ -97,8 +99,9 @@ function switchTiles(id_a, id_b) {
 	tiles[id_a] = tiles[id_b];
 	tiles[id_b] = temp;
 	self.port.emit("load", tiles);
-	/* TODO: Exchange sendMsg lines here */
+	return true;
     }
+    return false;
 }
 
 /* These functions work with page content
@@ -116,6 +119,8 @@ function _switchContent(id_a, id_b) {
 	return false;
 
     var el_a = _getNthElement(id_a), el_b = _getNthElement(id_b);
+    titles[id_a].innerHTML = titles[id_a].innerHTML.replace("sendMsg("+id_a, "sendMsg("+id_b, "g");
+    titles[id_b].innerHTML = titles[id_b].innerHTML.replace("sendMsg("+id_b, "sendMsg("+id_a, "g");
     var temp_html = el_b.innerHTML;
     el_b.innerHTML = el_a.innerHTML;
     el_a.innerHTML = temp_html;
