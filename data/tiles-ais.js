@@ -58,7 +58,7 @@ function sendMsg(id, code) {
 };
 
 function constructButton(id, code, text) {
-    return "<a onclick='window.sendMsg(" + id + ", " + code + ")'>" + text + "</a>";
+    return "<a onclick='window.sendMsg(" + id + ", " + code + ")' href=\"#\">" + text + "</a>";
 }
 
 exportFunction(sendMsg, unsafeWindow, {defineAs: "sendMsg"});
