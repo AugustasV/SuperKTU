@@ -6,18 +6,26 @@ const tSelector = "h4";
 self.port.on("load", function (data) {
     tiles = data;
 });
+var op = 0; // Are we doing the hiding op. or not?
 
 var titles = document.getElementsByTagName(tSelector);
 
 for (var i = 0; i <= numOfTiles; i++)
     // Left Right Down Up Close
     titles[i].innerHTML += "\
-" + constructButton(i, 0, "&#9668;") + "\
-" + constructButton(i, 1, "&#9658;") + "\
-" + constructButton(i, 2, "&#9660;") + "\
-" + constructButton(i, 3, "&#9650;") + "\
-" + constructButton(i, 4, "&#10005;") + "\
-";
+    " + constructButton(i, 0, "&#9668;") + "\
+    " + constructButton(i, 1, "&#9658;") + "\
+    " + constructButton(i, 2, "&#9660;") + "\
+    " + constructButton(i, 3, "&#9650;") + "\
+    " + constructButton(i, 4, "&#10005;") + "";
+
+function isVisible(id) {
+    var el = _getNthElement(id);
+    if (el.style.display && el.style.display == "none")
+        return false;
+    return true;
+}
+
 
 function checkIfGood(id) {
     if (id < 0 || id > numOfTiles)
@@ -27,33 +35,35 @@ function checkIfGood(id) {
 
 function sendMsg(id, code) {
     var ret;
+
+    if (!checkIfGood(id)) {
+        window.alert("Wrong id in sendMsg()");
+        return false;
+    }
     switch (code) {
     case 0:
+        op = 0;
 	ret = left(id);
-	if (!ret)
-	    window.alert("sendMsg()::left() failed");
 	break;
     case 1:
+        op = 0;
 	ret = right(id);
-	if (!ret)
-	    window.alert("sendMsg()::right() failed");
 	break;
     case 2:
+        op = 0;
 	ret = down(id);
-	if (!ret)
-	    window.alert("sendMsg()::down() failed");
 	break;
     case 3:
+        op = 0;
 	ret = up(id);
-	if (!ret)
-	    window.alert("sendMsg()::up() failed");
 	break;
     case 4:
+        op = 1;
 	ret = hide(id);
-	if (!ret)
-	    window.alert("sendMsg()::hide() failed");
 	break;
     }
+    if (!ret)
+        window.alert("Action failed");
     return ret;
 };
 
@@ -117,6 +127,8 @@ function _getNthElement(id) {
 function _switchContent(id_a, id_b) {
     if (!checkIfGood(id_a) || !checkIfGood(id_b))
 	return false;
+    if (!op && (!isVisible(id_a) || !isVisible(id_b)))
+        return false;
 
     var el_a = _getNthElement(id_a), el_b = _getNthElement(id_b);
     titles[id_a].innerHTML = titles[id_a].innerHTML.replace("sendMsg("+id_a, "sendMsg("+id_b, "g");
@@ -134,7 +146,7 @@ function _hideTile(id) {
     var tiles = document.querySelectorAll(selector);
     var visTile = numOfTiles;
     while (visTile >= 0 && tiles[visTile].style.display &&
-	   tiles[visTile].style.display == "none")
+            tiles[visTile].style.display == "none")
 	visTile--;
     if (visTile >= 0)
 	tiles[visTile].style.display = "none";
