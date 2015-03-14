@@ -1,23 +1,12 @@
-var tiles;
 const numOfTiles = 7;
 const selector = "div[class='span4']";
 const tSelector = "h4";
-
-self.port.on("load", function (data) {
-    tiles = data;
-});
-var op = 0; // Are we doing the hiding op. or not?
-
+var tiles, enabled, op = 0;
 var titles = document.getElementsByTagName(tSelector);
 
-for (var i = 0; i <= numOfTiles; i++)
-    // Left Right Down Up Close
-    titles[i].innerHTML += "\
-    " + constructButton(i, 0, "&#9668;") + "\
-    " + constructButton(i, 1, "&#9658;") + "\
-    " + constructButton(i, 2, "&#9660;") + "\
-    " + constructButton(i, 3, "&#9650;") + "\
-    " + constructButton(i, 4, "&#10005;") + "";
+self.port.on("load", function (data, state) {
+    tiles = data;
+});
 
 function isVisible(id) {
     var el = _getNthElement(id);
@@ -25,7 +14,6 @@ function isVisible(id) {
         return false;
     return true;
 }
-
 
 function checkIfGood(id) {
     if (id < 0 || id > numOfTiles)
@@ -37,9 +25,10 @@ function sendMsg(id, code) {
     var ret;
 
     if (!checkIfGood(id)) {
-        window.alert("Wrong id in sendMsg()");
+        window.alert("Unexpected error. Wrong id in sendMsg()");
         return false;
     }
+
     switch (code) {
     case 0:
         op = 0;
@@ -62,16 +51,12 @@ function sendMsg(id, code) {
 	ret = hide(id);
 	break;
     }
-    if (!ret)
-        window.alert("Action failed");
     return ret;
 };
 
 function constructButton(id, code, text) {
     return "<a onclick='window.sendMsg(" + id + ", " + code + ")' href=\"#\">" + text + "</a>";
 }
-
-exportFunction(sendMsg, unsafeWindow, {defineAs: "sendMsg"});
 
 /* These functions change page content and update tiles
  * Usually these are called when user clicks something
@@ -151,4 +136,16 @@ function _hideTile(id) {
     if (visTile >= 0)
 	tiles[visTile].style.display = "none";
     return _switchContent(visTile, id);
+}
+
+if (self.options.enabled) {
+    for (var i = 0; i <= numOfTiles; i++)
+        // Left Right Down Up Close
+        titles[i].innerHTML += "\
+                               " + constructButton(i, 0, "&#9668;") + "\
+                               " + constructButton(i, 1, "&#9658;") + "\
+                               " + constructButton(i, 2, "&#9660;") + "\
+                               " + constructButton(i, 3, "&#9650;") + "\
+                               " + constructButton(i, 4, "&#10005;") + "";
+    exportFunction(sendMsg, unsafeWindow, {defineAs: "sendMsg"});
 }

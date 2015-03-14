@@ -19,5 +19,12 @@
 	"description": "Students can automatically pass login screens on some pages",
 	"type": "bool",
 	"value": true
+    },
+    {
+        "name": "tiles",
+        "title": "Tiles",
+        "description": "Enable movable tiles in AIS",
+        "type": "bool",
+        "value": true
     }]
 }
