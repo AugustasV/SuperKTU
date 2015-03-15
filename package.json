@@ -7,18 +7,18 @@
     "license": "GPL 3.0",
     "version": "0.1",
     "preferences": [{
-	"name": "status",
-	"title": "Status",
-	"description": "Are you a student?",
-	"type": "bool",
-	"value": true
+        "name": "status",
+        "title": "Status",
+        "description": "Are you a student?",
+        "type": "bool",
+        "value": true
     },
     {
-	"name": "skip",
-	"title": "Skip",
-	"description": "Students can automatically pass login screens on some pages",
-	"type": "bool",
-	"value": true
+        "name": "skip",
+        "title": "Skip",
+        "description": "Students can automatically pass login screens on some pages",
+        "type": "bool",
+        "value": true
     },
     {
         "name": "tiles",

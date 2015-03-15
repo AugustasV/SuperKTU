@@ -1,12 +1,18 @@
 const numOfTiles = 7;
 const selector = "div[class='span4']";
 const tSelector = "h4";
-var tiles, enabled, op = 0;
+var enabled, op = 0;
 var titles = document.getElementsByTagName(tSelector);
+var tiles = null;
 
-self.port.on("load", function (data, state) {
-    tiles = data;
+self.port.on("load", function (data) {
+    console.log("Gavom data");
+    saveTiles(data);
 });
+
+function saveTiles(data) {
+    tiles = data;
+}
 
 function isVisible(id) {
     var el = _getNthElement(id);
@@ -17,7 +23,7 @@ function isVisible(id) {
 
 function checkIfGood(id) {
     if (id < 0 || id > numOfTiles)
-	return false;
+        return false;
     return true;
 }
 
@@ -30,26 +36,26 @@ function sendMsg(id, code) {
     }
 
     switch (code) {
-    case 0:
-        op = 0;
-	ret = left(id);
-	break;
-    case 1:
-        op = 0;
-	ret = right(id);
-	break;
-    case 2:
-        op = 0;
-	ret = down(id);
-	break;
-    case 3:
-        op = 0;
-	ret = up(id);
-	break;
-    case 4:
-        op = 1;
-	ret = hide(id);
-	break;
+        case 0:
+            op = 0;
+            ret = left(id);
+            break;
+        case 1:
+            op = 0;
+            ret = right(id);
+            break;
+        case 2:
+            op = 0;
+            ret = down(id);
+            break;
+        case 3:
+            op = 0;
+            ret = up(id);
+            break;
+        case 4:
+            op = 1;
+            ret = hide(id);
+            break;
     }
     return ret;
 };
@@ -64,9 +70,9 @@ function constructButton(id, code, text) {
 function hide(id) {
     var ret = _hideTile(id);
     if (ret) {
-	tiles[id].status = false;
-	self.port.emit("load", tiles);
-	return true;
+        tiles[id].status = false;
+        self.port.emit("load", tiles);
+        return true;
     }
     return false;
 }
@@ -90,11 +96,11 @@ function down(id) {
 function switchTiles(id_a, id_b) {
     var ret = _switchContent(id_a, id_b);
     if (ret) {
-	var temp = tiles[id_a];
-	tiles[id_a] = tiles[id_b];
-	tiles[id_b] = temp;
-	self.port.emit("load", tiles);
-	return true;
+        var temp = tiles[id_a];
+        tiles[id_a] = tiles[id_b];
+        tiles[id_b] = temp;
+        self.port.emit("load", tiles);
+        return true;
     }
     return false;
 }
@@ -104,14 +110,14 @@ function switchTiles(id_a, id_b) {
  */
 function _getNthElement(id) {
     if (!checkIfGood(id))
-	return false;
+        return false;
     var matchedTiles = document.querySelectorAll(selector);
     return matchedTiles[id];
 }
 
 function _switchContent(id_a, id_b) {
     if (!checkIfGood(id_a) || !checkIfGood(id_b))
-	return false;
+        return false;
     if (!op && (!isVisible(id_a) || !isVisible(id_b)))
         return false;
 
@@ -126,15 +132,15 @@ function _switchContent(id_a, id_b) {
 
 function _hideTile(id) {
     if (!checkIfGood(id))
-	return false;
-    
+        return false;
+
     var tiles = document.querySelectorAll(selector);
     var visTile = numOfTiles;
     while (visTile >= 0 && tiles[visTile].style.display &&
             tiles[visTile].style.display == "none")
-	visTile--;
+        visTile--;
     if (visTile >= 0)
-	tiles[visTile].style.display = "none";
+        tiles[visTile].style.display = "none";
     return _switchContent(visTile, id);
 }
 
@@ -142,10 +148,11 @@ if (self.options.enabled) {
     for (var i = 0; i <= numOfTiles; i++)
         // Left Right Down Up Close
         titles[i].innerHTML += "\
-                               " + constructButton(i, 0, "&#9668;") + "\
-                               " + constructButton(i, 1, "&#9658;") + "\
-                               " + constructButton(i, 2, "&#9660;") + "\
-                               " + constructButton(i, 3, "&#9650;") + "\
-                               " + constructButton(i, 4, "&#10005;") + "";
+                                " + constructButton(i, 0, "&#9668;") + "\
+                                " + constructButton(i, 1, "&#9658;") + "\
+                                " + constructButton(i, 2, "&#9660;") + "\
+                                " + constructButton(i, 3, "&#9650;") + "\
+                                " + constructButton(i, 4, "&#10005;") + "";
     exportFunction(sendMsg, unsafeWindow, {defineAs: "sendMsg"});
+    window.alert(tiles);
 }
