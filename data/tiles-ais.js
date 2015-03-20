@@ -1,9 +1,10 @@
 const numOfTiles = 7;
 const selector = "div[class='span4']";
 const tSelector = 'h4';
-var enabled, op = 0, hidden = false;
+var enabled, op = 0;
 var titles = document.getElementsByTagName(tSelector);
 var tiles = self.options.tiles;
+var hidden = [0, 1, 2, 3, 4, 5, 6, 7];
 
 /* Is the element whose id is id visible? */
 function isVisible(id) {
@@ -65,16 +66,14 @@ function constructButton(id, code, text) {
 
 /* Hide the tile whose id is id */
 function hide(id) {
+    var curHidden = _visTile();
     var ret = _hideTile(id);
-    if (ret) {
-        /*
-         * TODO: When we already hid some things
-         * the id which user clicked may not be
-         * the real id (when hiding things)
-         * 
-         * *** NOW THE USER CAN'T HIDE HALF OF THE TILES ***
-         */
-        tiles[id].status = false;
+    if (ret && curHidden >= 0) {
+        for (tile of tiles)
+            if (tile.id == hidden[id])
+                tile.status = false;
+
+        _switch_Hidden(id, curHidden);
         return true;
     }
     return false;
@@ -139,16 +138,23 @@ function _switchContent(id_a, id_b) {
     return true;
 }
 
+/* Get the current visible tile */
+function _visTile() {
+    var til = document.querySelectorAll(selector);
+    var visTile = numOfTiles;
+    while (visTile >= 0 && til[visTile].style.display &&
+            til[visTile].style.display == 'none')
+        visTile--;
+    return visTile;
+}
+
 /* Hide tile whose id is id */
 function _hideTile(id) {
     if (!checkIfGood(id))
         return false;
 
     var til = document.querySelectorAll(selector);
-    var visTile = numOfTiles;
-    while (visTile >= 0 && til[visTile].style.display &&
-            til[visTile].style.display == 'none')
-        visTile--;
+    visTile = _visTile();
     if (visTile >= 0)
         til[visTile].style.display = 'none';
     return _really_switch(id, visTile);
@@ -183,11 +189,25 @@ if (self.options.enabled) {
         if (log) {
             _switchContent(i, el);
             switched.push(i);
+            _switch_Hidden(el, i);
         }
-
-        if (!tiles[i].status)
-            _hideTile(tiles[i].id);
     }
+
+    for (var i = 0; i <= numOfTiles; i++) {
+         if (!tiles[i].status) {
+            var curHidden = _visTile();
+            _hideTile(hidden.indexOf(tiles[i].id));
+            _switch_Hidden(curHidden, hidden.indexOf(tiles[i].id));
+        }
+    }
+
+
+}
+
+function _switch_Hidden(a, b) {
+    var temp = hidden[b];
+    hidden[b] = hidden[a];
+    hidden[a] = temp;
 }
 
 /* HELPER FUNCTIONS */
