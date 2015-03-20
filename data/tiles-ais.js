@@ -1,6 +1,7 @@
 const numOfTiles = 7;
 const selector = "div[class='span4']";
 const tSelector = 'h4';
+const bClass = 'nav nav-secondary';
 var enabled, op = 0;
 var titles = document.getElementsByTagName(tSelector);
 var tiles = self.options.tiles;
@@ -160,6 +161,32 @@ function _hideTile(id) {
     return _really_switch(id, visTile);
 }
 
+/* Revert all stuff into original state */
+function resetState() {
+    for (var i = 0; i <= numOfTiles; i++) {
+        if (hidden[i] != i) {
+            for (var j = 0; j <= numOfTiles; j++)
+                if (hidden[j] == i) {
+                    _really_switch(j, i);
+
+                    var temp = hidden[i];
+                    hidden[i] = hidden[j];
+                    hidden[j] = temp;
+                    break;
+                }
+        }
+    }
+
+    for (var i = 0; i <= numOfTiles; i++) {
+        tiles[i].status = true;
+        _getNthElement(i).style.display = '';
+        hidden[i] = i;
+        tiles[i].id = i;
+    }
+
+    self.port.emit('load', tiles);
+}
+
 /* Stuff that only happens if the user wants this functionality */
 if (self.options.enabled) {
     /* Build the user facing buttons in AIS */
@@ -185,8 +212,8 @@ if (self.options.enabled) {
     var switched = [];
     for (var i = 0; i <= numOfTiles; i++) {
         var el = findEl(i);
-        var log = (el != null && tiles[i].id != i && !inside(switched, tiles[i].id));
-        if (log) {
+        if (el != null && tiles[i].id != i &&
+            !inside(switched, tiles[i].id)) {
             _switchContent(i, el);
             switched.push(i);
             _switch_Hidden(el, i);
@@ -201,7 +228,11 @@ if (self.options.enabled) {
         }
     }
 
+    /* Export reset state function */
+    exportFunction(resetState, unsafeWindow, {defineAs: 'resetState'});
 
+    var buttons = document.getElementsByClassName(bClass);
+    buttons[0].innerHTML += '<li><a href="#" onclick="window.resetState()">' + self.options.rtext + '</a></li>';
 }
 
 /* HELPER FUNCTIONS */
