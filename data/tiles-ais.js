@@ -232,7 +232,7 @@ if (self.options.enabled) {
     exportFunction(resetState, unsafeWindow, {defineAs: 'resetState'});
 
     var buttons = document.getElementsByClassName(bClass);
-    buttons[0].innerHTML += '<li><a href="#" onclick="window.resetState()">' + self.options.rtext + '</a></li>';
+    buttons[0].innerHTML += '<li><a href="#" target="_self" onclick="window.resetState()">' + self.options.rtext + '</a></li>';
 }
 
 /* HELPER FUNCTIONS */
