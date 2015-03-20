@@ -185,7 +185,7 @@ if (self.options.enabled) {
     var switched = [];
     for (var i = 0; i <= numOfTiles; i++) {
         var el = findEl(i);
-        var log = (el != null && tiles[i].id != i && !inside(switched,tiles[i].id));
+        var log = (el != null && tiles[i].id != i && !inside(switched, tiles[i].id));
         if (log) {
             _switchContent(i, el);
             switched.push(i);
@@ -204,12 +204,6 @@ if (self.options.enabled) {
 
 }
 
-function _switch_Hidden(a, b) {
-    var temp = hidden[b];
-    hidden[b] = hidden[a];
-    hidden[a] = temp;
-}
-
 /* HELPER FUNCTIONS */
 /* Find element in tiles array whose id property is id */
 function findEl(id) {
@@ -221,6 +215,14 @@ function findEl(id) {
     }
     return null;
 }
+
+/* Switch elements in the hidden array */
+function _switch_Hidden(a, b) {
+    var temp = hidden[b];
+    hidden[b] = hidden[a];
+    hidden[a] = temp;
+}
+
 
 /* Check if sk is inside mas */
 function inside(mas, sk) {
