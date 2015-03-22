@@ -209,14 +209,11 @@ if (self.options.enabled) {
     };
 
     /* Make everything like it was in the tiles array */
-    var switched = [];
     for (var i = 0; i <= numOfTiles; i++) {
-        var el = findEl(i);
-        if (el != null && tiles[i].id != i &&
-            !inside(switched, tiles[i].id)) {
+        while (hidden[i] != tiles[i].id) {
+            var el = findEl(hidden[i]);
+            _switch_Hidden(i, el);
             _switchContent(i, el);
-            switched.push(i);
-            _switch_Hidden(el, i);
         }
     }
 
