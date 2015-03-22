@@ -48,9 +48,12 @@ for (var i = 0; i <= numOfTiles; i++) {
 
 for (var i = 0; i <= numOfTiles; i++) {
     if (!tiles[i].status) {
-        var curHidden = _visTile();
-        _hideTile(hidden.indexOf(tiles[i].id));
-        _switch_Hidden(curHidden, hidden.indexOf(tiles[i].id));
+        var curVisible = _visTile();
+        var index = hidden.indexOf(tiles[i].id);
+        if (index <= curVisible) {
+            _hideTile(index);
+            _switch_Hidden(curVisible, index);
+        }
     }
 }
 
