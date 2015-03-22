@@ -1,10 +1,21 @@
+/* Number of tiles (starting from 0) */
 const numOfTiles = 7;
+
+/* Selector for tiles, titles and buttons */
 const selector = "div[class='span4']";
 const tSelector = 'h4';
 const bClass = 'nav nav-secondary';
+
+/* Is the addon enabled and is it a hiding op. */
 var enabled, op = 0;
+
+/* Live elements of tiles titles */
 var titles = document.getElementsByTagName(tSelector);
+
+/* Tiles data from lib/ */
 var tiles = self.options.tiles;
+
+/* Hidden array - how real ids are distributed */
 var hidden = [0, 1, 2, 3, 4, 5, 6, 7];
 
 /* Is the element whose id is id visible? */
