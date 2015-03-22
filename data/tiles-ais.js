@@ -18,6 +18,49 @@ var tiles = self.options.tiles;
 /* Hidden array - how real ids are distributed */
 var hidden = [0, 1, 2, 3, 4, 5, 6, 7];
 
+/* Build the user facing buttons in AIS */
+for (var i = 0; i <= numOfTiles; i++)
+    // Left Right Down Up Close
+    titles[i].innerHTML += '' +
+    ' ' + constructButton(i, 0, '&#9668;') +
+    ' ' + constructButton(i, 1, '&#9658;') +
+    ' ' + constructButton(i, 2, '&#9660;') +
+    ' ' + constructButton(i, 3, '&#9650;') +
+    ' ' + constructButton(i, 4, '&#10005;');
+
+/* Export the function */
+exportFunction(sendMsg, unsafeWindow, {defineAs: 'sendMsg'});
+
+/* On unload please send the tiles info back */
+window.onbeforeunload = function() {
+    if (tiles != null)
+        self.port.emit('load', tiles);
+};
+
+/* Make everything like it was in the tiles array */
+for (var i = 0; i <= numOfTiles; i++) {
+    while (hidden[i] != tiles[i].id) {
+        var el = findEl(hidden[i]);
+        _switch_Hidden(i, el);
+        _switchContent(i, el);
+    }
+}
+
+for (var i = 0; i <= numOfTiles; i++) {
+    if (!tiles[i].status) {
+        var curHidden = _visTile();
+        _hideTile(hidden.indexOf(tiles[i].id));
+        _switch_Hidden(curHidden, hidden.indexOf(tiles[i].id));
+    }
+}
+
+/* Export reset state function */
+exportFunction(resetState, unsafeWindow, {defineAs: 'resetState'});
+
+/* Add the new button */
+var buttons = document.getElementsByClassName(bClass);
+buttons[0].innerHTML += '<li><a href="#" target="_self" onclick="window.resetState()">' + self.options.rtext + '</a></li>';
+
 /* Is the element whose id is id visible? */
 function isVisible(id) {
     var el = _getNthElement(id);
@@ -196,51 +239,6 @@ function resetState() {
     }
 
     self.port.emit('load', tiles);
-}
-
-/* Stuff that only happens if the user wants this functionality */
-if (self.options.enabled) {
-    /* Build the user facing buttons in AIS */
-    for (var i = 0; i <= numOfTiles; i++)
-        // Left Right Down Up Close
-        titles[i].innerHTML += '' +
-        ' ' + constructButton(i, 0, '&#9668;') +
-        ' ' + constructButton(i, 1, '&#9658;') +
-        ' ' + constructButton(i, 2, '&#9660;') +
-        ' ' + constructButton(i, 3, '&#9650;') +
-        ' ' + constructButton(i, 4, '&#10005;');
-
-    /* Export the function */
-    exportFunction(sendMsg, unsafeWindow, {defineAs: 'sendMsg'});
-
-    /* On unload please send the tiles info back */
-    window.onbeforeunload = function() {
-        if (tiles != null)
-            self.port.emit('load', tiles);
-    };
-
-    /* Make everything like it was in the tiles array */
-    for (var i = 0; i <= numOfTiles; i++) {
-        while (hidden[i] != tiles[i].id) {
-            var el = findEl(hidden[i]);
-            _switch_Hidden(i, el);
-            _switchContent(i, el);
-        }
-    }
-
-    for (var i = 0; i <= numOfTiles; i++) {
-         if (!tiles[i].status) {
-            var curHidden = _visTile();
-            _hideTile(hidden.indexOf(tiles[i].id));
-            _switch_Hidden(curHidden, hidden.indexOf(tiles[i].id));
-        }
-    }
-
-    /* Export reset state function */
-    exportFunction(resetState, unsafeWindow, {defineAs: 'resetState'});
-
-    var buttons = document.getElementsByClassName(bClass);
-    buttons[0].innerHTML += '<li><a href="#" target="_self" onclick="window.resetState()">' + self.options.rtext + '</a></li>';
 }
 
 /* HELPER FUNCTIONS */
