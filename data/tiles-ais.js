@@ -120,6 +120,9 @@ function sendMsg(id, code) {
             op = 1;
             ret = hide(id);
             break;
+        default:
+            window.alert('Unknown code in sendMsg()');
+            return false;
     }
     return ret;
 }
