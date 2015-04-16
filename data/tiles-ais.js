@@ -250,6 +250,7 @@ function resetState() {
                 if (hidden[j] == i) {
                     _really_switch(j, i);
                     _switch_Elements(j, i, hidden);
+                    break;
                 }
         }
     }
@@ -264,6 +265,7 @@ function resetState() {
                 if (tiles[j].id == i) {
                     _really_switch(j, i);
                     _switch_Elements(j, i, tiles);
+                    break;
                 }
         }
     }
