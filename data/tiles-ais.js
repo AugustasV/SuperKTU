@@ -2,16 +2,16 @@
 const numOfTiles = 7;
 
 /* Selector for tiles, titles and buttons */
-const selector = "div[class='span4']";
+const selector = 'div[class="span4"]';
 const tSelector = 'h4';
 const bClass = 'nav nav-secondary';
 
 /* Buttons */
-const bLeft = "&#9668;";
-const bRight = "&#9658;";
-const bDown = "&#9660;";
-const bUp = "&#9650;";
-const bClose = "&#10005;";
+const bLeft = '&#9668;';
+const bRight = '&#9658;';
+const bDown = '&#9660;';
+const bUp = '&#9650;';
+const bClose = '&#10005;';
 
 /* Is the addon enabled and is it a hiding op. */
 var enabled, op = 0;
@@ -126,7 +126,7 @@ function sendMsg(id, code) {
 
 /* String builder for clickable buttons */
 function constructButton(id, code, text) {
-    return "<a onclick='window.sendMsg(" + id + ', ' + code + ")' href=\"#\">" + text + '</a>';
+    return '<a onclick="window.sendMsg(' + id + ', ' + code + ')" href="#">' + text + '</a>';
 }
 
 /* Hide the tile whose id is id */
@@ -269,7 +269,6 @@ function _switch_Hidden(a, b) {
     hidden[b] = hidden[a];
     hidden[a] = temp;
 }
-
 
 /* Check if el is inside arr */
 function inside(arr, el) {
