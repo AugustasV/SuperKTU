@@ -264,10 +264,7 @@ function _switch_Hidden(a, b) {
 }
 
 
-/* Check if sk is inside mas */
-function inside(mas, sk) {
-    for (var i = 0; i < mas.length; i++)
-        if (mas[i] == sk)
-            return true;
-    return false;
+/* Check if el is inside arr */
+function inside(arr, el) {
+    return arr.indexOf(el) != -1;
 }
