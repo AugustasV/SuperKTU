@@ -169,7 +169,7 @@ function switchTiles(id_a, id_b) {
 /* Get Nth tile info */
 function _getNthElement(id) {
     if (!checkIfGood(id))
-        return false;
+        return null;
     var matchedTiles = document.querySelectorAll(selector);
     return matchedTiles[id];
 }
@@ -177,6 +177,9 @@ function _getNthElement(id) {
 /* Really switch tiles with ids id_a and id_b (the content) */
 function _really_switch(id_a, id_b) {
     var el_a = _getNthElement(id_a), el_b = _getNthElement(id_b);
+    if (!el_a || !el_b)
+	    return false;
+
     titles[id_a].innerHTML = titles[id_a].innerHTML.replace('sendMsg(' + id_a, 'sendMsg(' + id_b, 'g');
     titles[id_b].innerHTML = titles[id_b].innerHTML.replace('sendMsg(' + id_b, 'sendMsg(' + id_a, 'g');
     var temp_html = el_b.innerHTML;
