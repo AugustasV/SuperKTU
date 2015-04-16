@@ -209,7 +209,7 @@ function _visTile() {
     var til = document.querySelectorAll(selector);
     var visTile = numOfTiles;
     while (visTile >= 0 && til[visTile].style.display &&
-            til[visTile].style.display == 'none')
+           til[visTile].style.display == 'none')
         visTile--;
     return visTile;
 }
