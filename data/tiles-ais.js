@@ -45,7 +45,7 @@ window.onbeforeunload = function() {
 };
 
 /* Make everything like it was in the tiles array */
-for (var i = 0; i <= numOfTiles; i++) {
+for (i = 0; i <= numOfTiles; i++) {
     while (hidden[i] != tiles[i].id) {
         var el = findEl(hidden[i]);
         _switch_Elements(i, el, hidden);
@@ -53,7 +53,7 @@ for (var i = 0; i <= numOfTiles; i++) {
     }
 }
 
-for (var i = 0; i <= numOfTiles; i++) {
+for (i = 0; i <= numOfTiles; i++) {
     if (!tiles[i].status) {
         var curVisible = _visTile();
         var index = hidden.indexOf(tiles[i].id);
