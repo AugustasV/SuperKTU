@@ -225,10 +225,7 @@ function resetState() {
             for (var j = 0; j <= numOfTiles; j++)
                 if (hidden[j] == i) {
                     _really_switch(j, i);
-
-                    var temp = hidden[i];
-                    hidden[i] = hidden[j];
-                    hidden[j] = temp;
+		    _switch_Hidden(i, j);
                     break;
                 }
         }
