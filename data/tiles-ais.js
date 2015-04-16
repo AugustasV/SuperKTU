@@ -6,6 +6,13 @@ const selector = "div[class='span4']";
 const tSelector = 'h4';
 const bClass = 'nav nav-secondary';
 
+/* Buttons */
+const bLeft = "&#9668;";
+const bRight = "&#9658;";
+const bDown = "&#9660;";
+const bUp = "&#9650;";
+const bClose = "&#10005;";
+
 /* Is the addon enabled and is it a hiding op. */
 var enabled, op = 0;
 
@@ -22,11 +29,11 @@ var hidden = [0, 1, 2, 3, 4, 5, 6, 7];
 for (var i = 0; i <= numOfTiles; i++)
     // Left Right Down Up Close
     titles[i].innerHTML += '' +
-    ' ' + constructButton(i, 0, '&#9668;') +
-    ' ' + constructButton(i, 1, '&#9658;') +
-    ' ' + constructButton(i, 2, '&#9660;') +
-    ' ' + constructButton(i, 3, '&#9650;') +
-    ' ' + constructButton(i, 4, '&#10005;');
+    ' ' + constructButton(i, 0, bLeft) +
+    ' ' + constructButton(i, 1, bRight) +
+    ' ' + constructButton(i, 2, bDown) +
+    ' ' + constructButton(i, 3, bUp) +
+    ' ' + constructButton(i, 4, bClose);
 
 /* Export the function */
 exportFunction(sendMsg, unsafeWindow, {defineAs: 'sendMsg'});
