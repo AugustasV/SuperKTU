@@ -40,7 +40,7 @@ exportFunction(sendMsg, unsafeWindow, {defineAs: 'sendMsg'});
 
 /* On unload please send the tiles info back */
 window.onbeforeunload = function() {
-    if (tiles != null)
+    if (tiles !== null)
         self.port.emit('load', tiles);
 };
 
