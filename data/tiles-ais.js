@@ -228,13 +228,39 @@ function _hideTile(id) {
 
 /* Revert all stuff into original state */
 function resetState() {
+    /*
+     * Iterate two times: over the hidden array and *then* tiles array
+     *
+     * hidden array changes are more important than tiles array changes
+     *
+     * On each iteration try very hard to make it go back to the original state
+     * each tile and element in the hidden/tiles array
+     * Just to be safe at the end reset every element to the original values
+     */
+
     for (var i = 0; i <= numOfTiles; i++) {
-        if (hidden[i] != i) {
-            for (var j = 0; j <= numOfTiles; j++)
+        if (hidden[i] == i)
+            continue;
+
+        while (hidden[i] != i) {
+            for (var j = i+1; j <= numOfTiles; j++)
                 if (hidden[j] == i) {
                     _really_switch(j, i);
-                    _switch_Elements(i, j, hidden);
-                    break;
+                    _switch_Elements(j, i, hidden);
+                }
+        }
+    }
+
+
+    for (var i = 0; i <= numOfTiles; i++) {
+        if (tiles[i].id == i)
+            continue;
+
+        while (tiles[i].id != i) {
+            for (var j = i+1; j <= numOfTiles; j++)
+                if (tiles[j].id == i) {
+                    _really_switch(j, i);
+                    _switch_Elements(j, i, tiles);
                 }
         }
     }
