@@ -48,7 +48,7 @@ window.onbeforeunload = function() {
 for (var i = 0; i <= numOfTiles; i++) {
     while (hidden[i] != tiles[i].id) {
         var el = findEl(hidden[i]);
-        _switch_Hidden(i, el);
+        _switch_Elements(i, el, hidden);
         _switchContent(i, el);
     }
 }
@@ -59,7 +59,7 @@ for (var i = 0; i <= numOfTiles; i++) {
         var index = hidden.indexOf(tiles[i].id);
         if (index <= curVisible) {
             _hideTile(index);
-            _switch_Hidden(curVisible, index);
+            _switch_Elements(curVisible, index, hidden);
         }
     }
 }
@@ -138,7 +138,7 @@ function hide(id) {
             if (tile.id == hidden[id])
                 tile.status = false;
 
-        _switch_Hidden(id, curHidden);
+        _switch_Elements(id, curHidden, hidden);
         return true;
     }
     return false;
@@ -165,9 +165,7 @@ function down(id) {
 function switchTiles(id_a, id_b) {
     var ret = _switchContent(id_a, id_b);
     if (ret) {
-        var temp = tiles[id_a];
-        tiles[id_a] = tiles[id_b];
-        tiles[id_b] = temp;
+        _switch_Elements(id_a, id_b, tiles);
         return true;
     }
     return false;
@@ -235,7 +233,7 @@ function resetState() {
             for (var j = 0; j <= numOfTiles; j++)
                 if (hidden[j] == i) {
                     _really_switch(j, i);
-		    _switch_Hidden(i, j);
+                    _switch_Elements(i, j, hidden);
                     break;
                 }
         }
@@ -263,11 +261,11 @@ function findEl(id) {
     return null;
 }
 
-/* Switch elements in the hidden array */
-function _switch_Hidden(a, b) {
-    var temp = hidden[b];
-    hidden[b] = hidden[a];
-    hidden[a] = temp;
+/* Generic function that switches elements with indexes a and b inside arr */
+function _switch_Elements(a, b, arr) {
+    var temp = arr[b];
+    arr[b] = arr[a];
+    arr[a] = temp;
 }
 
 /* Check if el is inside arr */
