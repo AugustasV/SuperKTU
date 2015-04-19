@@ -22,7 +22,7 @@ var titles = document.getElementsByTagName(tSelector);
 /* Tiles data from lib/ */
 var tiles = self.options.tiles;
 
-/* Hidden array - how real ids are distributed */
+/* Hidden array - how hidden ids are distributed */
 var hidden = [0, 1, 2, 3, 4, 5, 6, 7];
 
 /* Build the user facing buttons in AIS */
