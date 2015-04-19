@@ -242,9 +242,6 @@ function resetState() {
      */
 
     for (var i = 0; i <= numOfTiles; i++) {
-        if (hidden[i] == i)
-            continue;
-
         while (hidden[i] != i) {
             for (var j = i+1; j <= numOfTiles; j++)
                 if (hidden[j] == i) {
@@ -257,9 +254,6 @@ function resetState() {
 
 
     for (var i = 0; i <= numOfTiles; i++) {
-        if (tiles[i].id == i)
-            continue;
-
         while (tiles[i].id != i) {
             for (var j = i+1; j <= numOfTiles; j++)
                 if (tiles[j].id == i) {
