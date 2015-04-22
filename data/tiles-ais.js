@@ -1,5 +1,5 @@
 /* Number of tiles (starting from 0) */
-const numOfTiles = 7;
+const numOfTiles = 8;
 
 /* Selector for tiles, titles and buttons */
 const selector = 'div[class="span4"]';
@@ -23,7 +23,7 @@ var titles = document.getElementsByTagName(tSelector);
 var tiles = self.options.tiles;
 
 /* Hidden array - how hidden ids are distributed */
-var hidden = [0, 1, 2, 3, 4, 5, 6, 7];
+var hidden = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 /* Build the user facing buttons in AIS */
 for (var i = 0; i <= numOfTiles; i++)
