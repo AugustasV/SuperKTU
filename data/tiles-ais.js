@@ -28,12 +28,12 @@ var hidden = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 /* Build the user facing buttons in AIS */
 for (var i = 0; i <= numOfTiles; i++)
     // Left Right Down Up Close
-    titles[i].innerHTML += '' +
+    titles[i].innerHTML += '<span style="float:right;">' +
     ' ' + constructButton(i, 0, bLeft) +
     ' ' + constructButton(i, 1, bRight) +
     ' ' + constructButton(i, 2, bDown) +
     ' ' + constructButton(i, 3, bUp) +
-    ' ' + constructButton(i, 4, bClose);
+    ' ' + constructButton(i, 4, bClose) + '</span>';
 
 /* Export the function */
 exportFunction(sendMsg, unsafeWindow, {defineAs: 'sendMsg'});
