@@ -252,7 +252,6 @@ function resetState() {
         }
     }
 
-
     for (var i = 0; i <= numOfTiles; i++) {
         while (tiles[i].id != i) {
             for (var j = i+1; j <= numOfTiles; j++)
