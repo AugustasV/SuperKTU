@@ -17,7 +17,7 @@ var enabled, op = 0;
 var titles = document.getElementsByTagName(tSelector);
 
 /* Number of tiles (starting from 0) */
-var numOfTiles = titles.length - 1;
+var numOfTiles = titles.length;
 
 /* Tiles data from lib/ */
 var tiles = self.options.tiles;
@@ -26,7 +26,7 @@ var tiles = self.options.tiles;
 var hidden = [];
 
 /* Build the user facing buttons in AIS */
-for (var i = 0; i <= numOfTiles; i++)
+for (var i = 0; i < numOfTiles; i++)
     // Left Right Down Up Close
     titles[i].innerHTML += '<span style="float:right;">' +
     ' ' + constructButton(i, 0, bLeft) +
@@ -45,18 +45,18 @@ window.onbeforeunload = function() {
 };
 
 /* Fill the hidden array, initialize/fix tiles */
-for (i = 0; i <= numOfTiles; i++)
+for (i = 0; i < numOfTiles; i++)
     hidden.push(i);
 
-if (tiles.length - 1 != numOfTiles) {
+if (tiles.length != numOfTiles) {
     tiles = [];
-    for (i = 0; i <= numOfTiles; i++)
+    for (i = 0; i < numOfTiles; i++)
         tiles.push(new createTile(i, true));
     self.port.emit('load', tiles);
 }
 
 /* Make everything like it was in the tiles array */
-for (i = 0; i <= numOfTiles; i++) {
+for (i = 0; i < numOfTiles; i++) {
     while (hidden[i] != tiles[i].id) {
         var el = findEl(hidden[i]);
         _switch_Elements(i, el, hidden);
@@ -64,7 +64,7 @@ for (i = 0; i <= numOfTiles; i++) {
     }
 }
 
-for (i = 0; i <= numOfTiles; i++) {
+for (i = 0; i < numOfTiles; i++) {
     if (!tiles[i].status) {
         var curVisible = _visTile();
         var index = hidden.indexOf(tiles[i].id);
@@ -98,7 +98,7 @@ function createTile(tid, status) {
 
 /* Sanity check for element ids */
 function checkIfGood(id) {
-    if (id < 0 || id > numOfTiles)
+    if (id < 0 || id >= numOfTiles)
         return false;
     return true;
 }
@@ -227,7 +227,7 @@ function _switchContent(id_a, id_b) {
 /* Get the current visible tile */
 function _visTile() {
     var til = document.querySelectorAll(selector);
-    var visTile = numOfTiles;
+    var visTile = numOfTiles - 1;
     while (visTile >= 0 && til[visTile].style.display &&
            til[visTile].style.display == 'none')
         visTile--;
@@ -258,9 +258,9 @@ function resetState() {
      * Just to be safe at the end reset every element to the original values
      */
 
-    for (var i = 0; i <= numOfTiles; i++) {
+    for (var i = 0; i < numOfTiles; i++) {
         while (hidden[i] != i) {
-            for (var j = i+1; j <= numOfTiles; j++)
+            for (var j = i+1; j < numOfTiles; j++)
                 if (hidden[j] == i) {
                     _really_switch(j, i);
                     _switch_Elements(j, i, hidden);
@@ -269,9 +269,9 @@ function resetState() {
         }
     }
 
-    for (var i = 0; i <= numOfTiles; i++) {
+    for (var i = 0; i < numOfTiles; i++) {
         while (tiles[i].id != i) {
-            for (var j = i+1; j <= numOfTiles; j++)
+            for (var j = i+1; j < numOfTiles; j++)
                 if (tiles[j].id == i) {
                     _really_switch(j, i);
                     _switch_Elements(j, i, tiles);
@@ -280,7 +280,7 @@ function resetState() {
         }
     }
 
-    for (var i = 0; i <= numOfTiles; i++) {
+    for (var i = 0; i < numOfTiles; i++) {
         tiles[i].status = true;
         _getNthElement(i).style.display = '';
         hidden[i] = i;
