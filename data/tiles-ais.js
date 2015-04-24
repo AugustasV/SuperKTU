@@ -1,6 +1,3 @@
-/* Number of tiles (starting from 0) */
-const numOfTiles = 7;
-
 /* Selector for tiles, titles and buttons */
 const selector = 'div[class="span4"]';
 const tSelector = 'h4';
@@ -19,11 +16,14 @@ var enabled, op = 0;
 /* Live elements of tiles titles */
 var titles = document.getElementsByTagName(tSelector);
 
+/* Number of tiles (starting from 0) */
+var numOfTiles = titles.length - 1;
+
 /* Tiles data from lib/ */
 var tiles = self.options.tiles;
 
 /* Hidden array - how hidden ids are distributed */
-var hidden = [0, 1, 2, 3, 4, 5, 6, 7];
+var hidden = [];
 
 /* Build the user facing buttons in AIS */
 for (var i = 0; i <= numOfTiles; i++)
@@ -43,6 +43,17 @@ window.onbeforeunload = function() {
     if (tiles !== null)
         self.port.emit('load', tiles);
 };
+
+/* Fill the hidden array, initialize/fix tiles */
+for (i = 0; i <= numOfTiles; i++)
+    hidden.push(i);
+
+if (tiles.length - 1 != numOfTiles) {
+    tiles = [];
+    for (i = 0; i <= numOfTiles; i++)
+        tiles.push(new createTile(i, true));
+    self.port.emit('load', tiles);
+}
 
 /* Make everything like it was in the tiles array */
 for (i = 0; i <= numOfTiles; i++) {
@@ -77,6 +88,12 @@ function isVisible(id) {
     if (el && el.style.display && el.style.display == 'none')
         return false;
     return true;
+}
+
+/* Create a tile object */
+function createTile(tid, status) {
+    this.id = tid;
+    this.status = status;
 }
 
 /* Sanity check for element ids */
@@ -247,6 +264,7 @@ function resetState() {
                 if (hidden[j] == i) {
                     _really_switch(j, i);
                     _switch_Elements(j, i, hidden);
+                    console.log('Switching ' + i + ' with ' + j + ' in hidden');
                     break;
                 }
         }
@@ -258,6 +276,7 @@ function resetState() {
                 if (tiles[j].id == i) {
                     _really_switch(j, i);
                     _switch_Elements(j, i, tiles);
+                    console.log('Switching ' + i + ' with ' + j + ' in tiles');
                     break;
                 }
         }
