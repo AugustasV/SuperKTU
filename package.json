@@ -26,5 +26,12 @@
         "description": "Enable movable tiles in AIS",
         "type": "bool",
         "value": true
+    },
+    {
+        "name": "expand",
+        "title": "Expand",
+        "description": "Expand lines in AIS marks table",
+        "type": "bool",
+        "value": true
     }]
 }
