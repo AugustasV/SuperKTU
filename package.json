@@ -28,9 +28,9 @@
         "value": true
     },
     {
-        "name": "expand",
-        "title": "Expand",
-        "description": "Expand lines in AIS marks table",
+        "name": "enhance",
+        "title": "Enhance",
+        "description": "Enhance AIS mark tables",
         "type": "bool",
         "value": true
     }]
