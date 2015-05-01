@@ -33,5 +33,12 @@
         "description": "Enhance AIS mark tables",
         "type": "bool",
         "value": true
+    },
+    {
+        "name": "expand",
+        "title": "Expand",
+        "description": "Expand AIS module tables",
+        "type": "bool",
+        "value": true
     }]
 }
