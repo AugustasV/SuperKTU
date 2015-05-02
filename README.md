@@ -5,6 +5,7 @@ A firefox add-on that improves KTU (Kaunas University of Technology) web pages
 * Adds the ability to (re)move tiles in KTU AIS (Academic information system)
 * Adds the ability to automatically skip pointless login pages in My KTU system
 * Can automatically highlight marks in KTU AIS depending on how big they are
+* Expand module table in KTU AIS so that you wouldn't have to click on each "view intermediate marks"
 
 # Supported languages
 Lithuanian and English.
