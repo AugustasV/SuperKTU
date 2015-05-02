@@ -19,14 +19,15 @@ function createRow(url)
 
     var iframe = document.createElement('iframe');
 
-    /* TODO: Better calculate iframe width/height */
     iframe.width = 790;
-    iframe.height = 255;
+    iframe.height = 252;
     iframe.src = url;
     iframe.frameBorder = 0;
+    iframe.style = "border: 1px solid black;";
 
     tr.appendChild(td);
     td.appendChild(iframe);
+
     return tr;
 }
 
