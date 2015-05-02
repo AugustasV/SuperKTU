@@ -34,6 +34,7 @@ function createRow(url)
 /* Expand module rows in AIS */
 function expandRows()
 {
+    var expanded = false;
     var tr = document.querySelectorAll('tr');
     for (var i = 0; i < tr.length; i++) {
         if (tr[i].onmouseover) {
@@ -42,14 +43,28 @@ function expandRows()
                 continue;
 
             tr[i].parentNode.insertBefore(createRow(url), tr[i+1]);
+            expanded = true;
         }
     }
+    return expanded;
 }
 
 /* Remove two redundant columns */
+/* These are all hardcoded values from the AIS */
 function removeRedundantCols()
 {
+    var title_cells = document.getElementsByClassName('cele12');
+    title_cells[0].parentNode.deleteCell(4);
+    title_cells[0].parentNode.deleteCell(3);
+    title_cells[5].parentNode.deleteCell(4);
+    title_cells[5].parentNode.deleteCell(3);
+
+    var highlight_cells = document.querySelectorAll('tr[onmouseover]');
+    for (cell of highlight_cells) {
+        cell.deleteCell(9);
+        cell.deleteCell(8);
+    }
 }
 
-expandRows();
-removeRedundantCols();
+if (expandRows())
+    removeRedundantCols();
