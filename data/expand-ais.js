@@ -15,12 +15,13 @@ function createRow(url)
     tr.className = 'H';
 
     var td = document.createElement('td');
-    td.colSpan = 10;
+
+    td.colSpan = 12;
 
     var iframe = document.createElement('iframe');
 
-    iframe.width = 729;
-    iframe.height = 253;
+    iframe.width = '100%';
+    iframe.height = 265;
     iframe.src = url;
     iframe.frameBorder = 0;
     iframe.style = "border: 1px solid #CFCFCF;";
@@ -50,7 +51,6 @@ function expandRows()
 }
 
 /* Remove two redundant columns */
-/* These are all hardcoded values from the AIS */
 function removeRedundantCols()
 {
     var title_cells = document.getElementsByClassName('cele12');
@@ -66,5 +66,20 @@ function removeRedundantCols()
     }
 }
 
-if (expandRows())
+/* Stylistical changes */
+function fixStyle()
+{
+    /* Some tr's are used like dashes but they are out of place now
+     * so remove them by setting their style to "" */
+    const cs = 10, style = 'border-top:1px solid silver; font-size:4pt;';
+
+    var trs = document.getElementsByTagName('td');
+    for (tr of trs)
+        if (tr.colSpan === cs && tr.getAttribute('style') === style)
+            tr.style = "";
+}
+
+if (expandRows()) {
     removeRedundantCols();
+    fixStyle();
+}
