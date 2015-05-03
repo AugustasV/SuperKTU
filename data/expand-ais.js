@@ -19,11 +19,11 @@ function createRow(url)
 
     var iframe = document.createElement('iframe');
 
-    iframe.width = 790;
+    iframe.width = 729;
     iframe.height = 253;
     iframe.src = url;
     iframe.frameBorder = 0;
-    iframe.style = "border: 1px solid black;";
+    iframe.style = "border: 1px solid #CFCFCF;";
 
     tr.appendChild(td);
     td.appendChild(iframe);
