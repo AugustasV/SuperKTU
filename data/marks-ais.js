@@ -5,6 +5,12 @@ var rating_system = {
     good: ['07'],
     very_good: ['08', '09', '10']
 };
+var st = [
+    {size: '2px', type: 'solid', color: 'red'},
+    {size: '2px', type: 'solid', color: 'orange'},
+    {size: '2px', type: 'solid', color: 'yellow'},
+    {size: '2px', type: 'solid', color: 'green'}
+];
 
 function get_category(grade)
 {
@@ -19,17 +25,12 @@ function get_category(grade)
     return -1;
 }
 
-function get_border_style(category)
+function get_border_style(cat)
 {
-    if (category === 0)
-        return "2px solid red";
-    else if (category === 1)
-        return "2px solid orange";
-    else if (category === 2)
-        return "2px solid yellow";
-    else if (category === 3)
-        return "2px solid green";
-    return "";
+    if (cat >= 0 && cat < 4)
+        return st[cat]['size'] + ' ' + st[cat]['type'] + ' ' + st[cat]['color'];
+    else
+        return '';
 }
 
 for (var item of grades) {
