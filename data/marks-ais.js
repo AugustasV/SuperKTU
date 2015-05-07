@@ -66,7 +66,7 @@ var cosmetic = {
         const clName = 'grd';
         const bd_style = '1px solid #C0C0C0';
 
-        var mark_table = document.querySelectorAll('tr.dtr')[0].parentNode;
+        var mark_table = document.querySelector('tr.dtr').parentNode;
         var cols = document.querySelector('.dtr_nb,.dtr').children.length - cs;
 
         var coef_line = document.createElement('tr');
