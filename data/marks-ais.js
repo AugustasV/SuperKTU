@@ -1,51 +1,51 @@
-var grades = document.querySelectorAll('td.grd');
-var st = [
-    {size: '2px', type: 'solid', color: 'red'},
-    {size: '2px', type: 'solid', color: 'orange'},
-    {size: '2px', type: 'solid', color: 'yellow'},
-    {size: '2px', type: 'solid', color: 'green'}
-];
-var marks = {
-    bad: 5,
-    almost_bad: 6,
-    good: 8,
-};
+var borders = {
+    st: [
+        {size: '2px', type: 'solid', color: 'red'},
+        {size: '2px', type: 'solid', color: 'orange'},
+        {size: '2px', type: 'solid', color: 'yellow'},
+        {size: '2px', type: 'solid', color: 'green'}
+    ],
+    marks: {
+        bad: 5,
+        almost_bad: 6,
+        good: 8
+    },
+    get_category: function(grade) {
+        if (grade.length > 4 || grade.length === 0)
+            return -1;
+        if (grade === 'NE')
+            return 0;
 
-function get_category(grade)
-{
-    if (grade.length > 4 || grade.length === 0)
+        var number = parseInt(grade);
+        if (isNaN(number))
+            return -1;
+
+        if (number < this.marks.bad)
+            return 0;
+        else if (number < this.marks.almost_bad)
+            return 1;
+        else if (number < this.marks.good)
+            return 2;
+        else
+            return 3;
+
         return -1;
-    if (grade === 'NE')
-        return 0;
+    },
+    get_border_style: function(cat) {
+        if (cat >= 0 && cat < 4)
+            return this.st[cat].size + ' ' + this.st[cat].type + ' ' + this.st[cat].color;
+        else
+            return '';
 
-    var number = parseInt(grade);
-    if (isNaN(number))
-        return -1;
-
-    if (number < marks['bad'])
-        return 0;
-    else if (number <= marks['almost_bad'])
-        return 1;
-    else if (number < marks['good'])
-        return 2;
-    else
-        return 3;
-
-    return -1;
-}
-
-function get_border_style(cat)
-{
-    if (cat >= 0 && cat < 4)
-        return st[cat]['size'] + ' ' + st[cat]['type'] + ' ' + st[cat]['color'];
-    else
-        return '';
-}
-
-for (var item of grades) {
-    var cat = get_category(item.innerHTML);
-    var border_style = get_border_style(cat);
-    item.style.border = border_style;
+    },
+    mark_marks: function() {
+        var grades = document.querySelectorAll('td.grd');
+        for (var item of grades) {
+            var cat = this.get_category(item.innerHTML);
+            var border_style = this.get_border_style(cat);
+            item.style.border = border_style;
+        }
+    }
 }
 
 var cosmetic = {
@@ -61,9 +61,10 @@ var cosmetic = {
     },
     /* Add a coefficient line */
     add_coef: function(){
-        const cs = 4;
+        const cs = 4, ed = 4;
         const mline = 'tr.dtr';
         const clName = 'grd';
+        const bd_style = '1px solid #C0C0C0';
 
         var mark_table = document.querySelectorAll('tr.dtr')[0].parentNode;
         var cols = document.querySelector('.dtr_nb,.dtr').children.length - cs;
@@ -80,7 +81,12 @@ var cosmetic = {
 
         for (var i = 0; i < cols; i++) {
             var empty_td = document.createElement('td');
-            empty_td.className = clName;
+
+            if (i < cols-ed)
+                empty_td.className = clName;
+            if (i == cols-1)
+                empty_td.style.borderRight = '1px solid #C0C0C0';
+
             coef_line.appendChild(empty_td);
         }
 
@@ -90,9 +96,10 @@ var cosmetic = {
 
 var core = {
     init: function(){
-        cosmetic['remove_ti']();
-        cosmetic['add_coef']();
+        borders.mark_marks();
+        cosmetic.remove_ti();
+        //cosmetic.add_coef();
     },
 }
 
-//core['init']();
+core.init();
