@@ -17,4 +17,4 @@ Periodically check this repository for new versions. Maybe in the future
 the addon will be hosted in the AMO so you'll not need to do this.
 
 # Licence
-GPL version three (3) or later.
+Public domain
