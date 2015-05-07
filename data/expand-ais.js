@@ -8,6 +8,13 @@ function getUrl(tr)
     return url.substring(url.lastIndexOf('/')+1, url.length);
 }
 
+/* Remove student plan line */
+function remove_sp(cont)
+{
+    var a = cont.querySelector('a');
+    a.parentNode.removeChild(a);
+}
+
 /* Create a tr element with iframe and stuff */
 function createRow(url)
 {
@@ -25,6 +32,9 @@ function createRow(url)
     iframe.src = url;
     iframe.frameBorder = 0;
     iframe.style = "border: 1px solid #CFCFCF;";
+    iframe.onload = function() {
+        remove_sp(iframe.contentDocument);
+    }
 
     tr.appendChild(td);
     td.appendChild(iframe);
