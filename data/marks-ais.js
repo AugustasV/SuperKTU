@@ -97,7 +97,7 @@ var cosmetic = {
 var core = {
     init: function(){
         borders.mark_marks();
-        cosmetic.remove_ti();
+        //cosmetic.remove_ti();
         //cosmetic.add_coef();
     },
 }
