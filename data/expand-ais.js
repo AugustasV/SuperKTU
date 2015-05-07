@@ -15,6 +15,13 @@ function remove_sp(cont)
     a.parentNode.removeChild(a);
 }
 
+/* Remove semester line */
+function remove_sl(cont)
+{
+    var sl = cont.querySelectorAll('td[width="25%"]')[0];
+    sl.parentNode.removeChild(sl);
+}
+
 /* Create a tr element with iframe and stuff */
 function createRow(url)
 {
@@ -34,6 +41,7 @@ function createRow(url)
     iframe.style = "border: 1px solid #CFCFCF;";
     iframe.onload = function() {
         remove_sp(iframe.contentDocument);
+        remove_sl(iframe.contentDocument);
     }
 
     tr.appendChild(td);
