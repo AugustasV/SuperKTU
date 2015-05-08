@@ -1,3 +1,5 @@
+'use strict';
+
 /* Selector for tiles, titles and buttons */
 const selector = 'div[class="span4"]';
 const tSelector = 'h4';
@@ -294,6 +296,7 @@ function resetState() {
 /* Find element in tiles array whose id property is id */
 function findEl(id) {
     var cur = 0;
+    var tile;
     for (tile of tiles) {
         if (tile.id == id)
             return cur;

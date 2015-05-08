@@ -1,3 +1,5 @@
+'use strict';
+
 var pastas = 'https://pastas.ktu.lt/';
 var stp = 'https://uais.cr.ktu.lt/ktuis/stp_prisijungimas';
 var el;

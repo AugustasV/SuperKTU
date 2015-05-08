@@ -1,3 +1,5 @@
+'use strict';
+
 /* Extract url from a tr */
 function getUrl(tr)
 {
@@ -78,6 +80,7 @@ function removeRedundantCols()
     title_cells[5].parentNode.deleteCell(3);
 
     var highlight_cells = document.querySelectorAll('tr[onmouseover]');
+    var cell;
     for (cell of highlight_cells) {
         cell.deleteCell(9);
         cell.deleteCell(8);

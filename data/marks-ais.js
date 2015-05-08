@@ -1,3 +1,8 @@
+'use strict';
+
+/* Task influence page */
+var ti = null;
+
 var borders = {
     st: [
         {size: '2px', type: 'solid', color: 'red'},
@@ -52,9 +57,11 @@ var cosmetic = {
     /* Removes task influence line */
     remove_ti: function(){
         const pos = 'relative';
+        var table;
         var tables = document.querySelectorAll('table');
         for (table of tables) {
             if (table.style.position === pos) {
+                ti = table.tBodies[0].childNodes[0].childNodes[1].childNodes[0].href;
                 table.parentNode.removeChild(table);
             }
         }
