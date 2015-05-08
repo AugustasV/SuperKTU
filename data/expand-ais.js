@@ -95,6 +95,7 @@ function fixStyle()
     const cs = 10, style = 'border-top:1px solid silver; font-size:4pt;';
 
     var trs = document.getElementsByTagName('td');
+    var tr;
     for (tr of trs)
         if (tr.colSpan === cs && tr.getAttribute('style') === style)
             tr.style = "";
