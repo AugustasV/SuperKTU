@@ -101,11 +101,42 @@ var cosmetic = {
     },
 }
 
+var parse = {
+    /* List of zin_nr and a list of name/worth in abs value */
+    worth: [],
+    /* Extract zin_nr from ti */
+    extract: function() {
+        var ind = ti.indexOf('?');
+        if (ind === -1)
+            return '';
+        ind += 8;
+        return ti.substring(ind, ind+12);
+    },
+    /* HTTP request callback */
+    rcb: function() {
+        if (this.readyState !== 4 || this.status !== 200)
+            return null;
+        /* Parse table and put info into this.worth */
+    },
+    /* Issue a async request to marks web page */
+    dl_page: function(page) {
+        var req = new XMLHttpRequest();
+        var zin_nr = this.extract();
+        if (zin_nr === '')
+            return null;
+        var url = 'ZINIARCSS3.inf_uzduciu_itaka_pazymiui?zin_nr=' + zin_nr + '&stud=1';
+        req.onload = this.rcb;
+        req.open('GET', url, true);
+        req.send();
+    }
+}
+
 var core = {
     init: function(){
         borders.mark_marks();
-        //cosmetic.remove_ti();
-        //cosmetic.add_coef();
+        cosmetic.remove_ti();
+        cosmetic.add_coef();
+        parse.dl_page();
     },
 }
 
