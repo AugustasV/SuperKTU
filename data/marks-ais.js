@@ -102,7 +102,7 @@ var cosmetic = {
 }
 
 var parse = {
-    /* List of zin_nr and a list of name/worth in abs value */
+    /* List of zin_nr and a list of name/week/worth in abs value */
     worth: [],
     /* Extract zin_nr from ti */
     extract: function() {
@@ -116,7 +116,29 @@ var parse = {
     rcb: function() {
         if (this.readyState !== 4 || this.status !== 200)
             return null;
+        /* For some reason .response doesn't exist so use this hack */
+        var doctype = document.implementation.createDocumentType('html', '', '');
+        var resp = document.implementation.createDocument('', 'html', doctype);
+        resp.documentElement.innerHTML = this.responseText;
         /* Parse table and put info into this.worth */
+        var cols = resp.querySelectorAll('.grd');
+        var entry = {};
+
+        for (var i = 0; i < cols.length / 2; i++) {
+            if (i % 2 === 0) {
+                /* name and week */
+                var txt = cols[i].children[0].innerHTML;
+                var open_p = txt.indexOf('(');
+                var close_p = txt.indexOf(')');
+                entry.name = txt.substring(0, open_p);
+                entry.week = txt.substring(open_p+1, close_p);
+            } else {
+                /* worth */
+                entry.worth = parseInt(cols[i].innerHTML) / 100;
+                parse.worth.push(entry);
+                entry = {};
+            }
+        }
     },
     /* Issue a async request to marks web page */
     dl_page: function(page) {
