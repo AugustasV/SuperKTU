@@ -98,6 +98,7 @@ var cosmetic = {
         }
 
         mark_table.appendChild(coef_line);
+        cosmetic.ln = coef_line;
     },
 }
 
@@ -139,6 +140,7 @@ var parse = {
                 entry = {};
             }
         }
+        parse.add_coef(cosmetic.ln);
     },
     /* Issue a async request to marks web page */
     dl_page: function(page) {
@@ -150,6 +152,27 @@ var parse = {
         req.onload = this.rcb;
         req.open('GET', url, true);
         req.send();
+    },
+    /* Find coefficient by week */
+    find_coef_by_wk: function(wk) {
+        var el;
+        for (el of parse.worth) {
+            if (el.week === wk)
+                return el.worth;
+        }
+        return null;
+    },
+    /* Add coef. to table from this.worth */
+    add_coef: function(line) {
+        var first_line = document.querySelectorAll('tr.ttl');
+        var wks = first_line[0].querySelectorAll('td');
+        var c = line.querySelectorAll('td');
+        var i = 4, j = 1;
+        while (i < wks.length && j < c.length) {
+            c[j].innerHTML = parse.find_coef_by_wk(wks[i].innerHTML);
+            i++;
+            j++;
+        }
     }
 }
 
