@@ -6,6 +6,7 @@ A firefox add-on that improves KTU (Kaunas University of Technology) web pages
 * Adds the ability to automatically skip pointless login pages in My KTU system
 * Can automatically highlight marks in KTU AIS depending on how big they are
 * Expand module table in KTU AIS so that you wouldn't have to click on each "view intermediate marks"
+* Automatically retrieve mark coefficients and place it in the marks table
 
 # Supported languages
 Lithuanian and English.
