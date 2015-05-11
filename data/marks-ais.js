@@ -154,10 +154,10 @@ var parse = {
         req.send();
     },
     /* Find coefficient by week */
-    find_coef_by_wk: function(wk) {
+    find_coef: function(wk, name) {
         var el;
         for (el of parse.worth) {
-            if (el.week === wk)
+            if (el.week === wk && el.name === name)
                 return el.worth;
         }
         return null;
@@ -166,12 +166,22 @@ var parse = {
     add_coef: function(line) {
         var first_line = document.querySelectorAll('tr.ttl');
         var wks = first_line[0].querySelectorAll('td');
+        var names = first_line[1].querySelectorAll('td');
         var c = line.querySelectorAll('td');
-        var i = 4, j = 1;
-        while (i < wks.length && j < c.length) {
-            c[j].innerHTML = parse.find_coef_by_wk(wks[i].innerHTML);
-            i++;
-            j++;
+        var wks_i = 4, names_i = 1, line_i = 1;
+
+        while (wks_i < wks.length-2 && names_i < names.length-2 && line_i < c.length) {
+            /* If there is a '-' then extract the first number */
+            var wk = wks[wks_i].innerHTML;
+            var dash_index = wk.indexOf('-');
+            if (dash_index > -1)
+                wk = wk.substring(0, dash_index);
+
+            c[line_i].innerHTML = parse.find_coef(wk, names[names_i].innerHTML);
+
+            wks_i++;
+            names_i++;
+            line_i++;
         }
     }
 }
