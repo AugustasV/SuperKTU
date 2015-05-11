@@ -102,6 +102,12 @@ var cosmetic = {
     },
 }
 
+function dbg() {
+    console.log('-----------------------');
+    for (var ent of parse.worth)
+        console.log(ent);
+}
+
 var parse = {
     /* List of zin_nr and a list of name/week/worth in abs value */
     worth: [],
@@ -121,23 +127,32 @@ var parse = {
         var doctype = document.implementation.createDocumentType('html', '', '');
         var resp = document.implementation.createDocument('', 'html', doctype);
         resp.documentElement.innerHTML = this.responseText;
+
         /* Parse table and put info into this.worth */
         var cols = resp.querySelectorAll('.grd');
-        var entry = {};
 
-        for (var i = 0; i < cols.length / 2; i++) {
-            if (i % 2 === 0) {
-                /* name and week */
-                var txt = cols[i].children[0].innerHTML;
+        for (var i = 0; i < cols.length; i+=2) {
+            /* name and week */
+            var els = cols[i].querySelectorAll('nobr');
+
+            /* Arrgh, sometimes this doesn't exist :\ */
+            if (!els.length)
+                continue;
+
+            var wk;
+            for (wk of els) {
+                var entry = {};
+
+                var txt = wk.innerHTML;
                 var open_p = txt.indexOf('(');
                 var close_p = txt.indexOf(')');
+
+
+                entry.worth = (parseInt(cols[i+1].innerHTML)) / els.length / 100;
                 entry.name = txt.substring(0, open_p);
                 entry.week = txt.substring(open_p+1, close_p);
-            } else {
-                /* worth */
-                entry.worth = parseInt(cols[i].innerHTML) / 100;
+
                 parse.worth.push(entry);
-                entry = {};
             }
         }
         parse.add_coef(cosmetic.ln);
@@ -178,6 +193,8 @@ var parse = {
                 wk = wk.substring(0, dash_index);
 
             c[line_i].innerHTML = parse.find_coef(wk, names[names_i].innerHTML);
+            if (c[line_i].innerHTML)
+                c[line_i].innerHTML = c[line_i].innerHTML.slice(0, 4);
 
             wks_i++;
             names_i++;
