@@ -44,6 +44,7 @@ function createRow(url)
     iframe.onload = function() {
         remove_sp(iframe.contentDocument);
         remove_sl(iframe.contentDocument);
+        iframe.height = iframe.contentWindow.document.body.offsetHeight + 40;
     }
 
     tr.appendChild(td);
