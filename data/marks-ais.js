@@ -102,12 +102,6 @@ var cosmetic = {
     },
 }
 
-function dbg() {
-    console.log('-----------------------');
-    for (var ent of parse.worth)
-        console.log(ent);
-}
-
 var parse = {
     /* List of zin_nr and a list of name/week/worth in abs value */
     worth: [],
