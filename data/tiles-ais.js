@@ -156,7 +156,7 @@ function hide(id) {
     var curHidden = _visTile();
     var ret = _hideTile(id);
     if (ret && curHidden >= 0) {
-        for (tile of tiles)
+        for (var tile of tiles)
             if (tile.id == hidden[id])
                 tile.status = false;
 
