@@ -242,7 +242,7 @@ function _hideTile(id) {
         return false;
 
     var til = document.querySelectorAll(selector);
-    visTile = _visTile();
+    var visTile = _visTile();
     if (visTile >= 0)
         til[visTile].style.display = 'none';
     return _really_switch(id, visTile);
