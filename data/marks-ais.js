@@ -177,8 +177,9 @@ var parse = {
         var names = first_line[1].querySelectorAll('td');
         var c = line.querySelectorAll('td');
         var wks_i = 4, names_i = 1, line_i = 1;
+        const res = 2; /* Reserved - at the end two cols date & final mark */
 
-        while (wks_i < wks.length-2 && names_i < names.length-2 && line_i < c.length) {
+        while (wks_i < wks.length-res && names_i < names.length-res && line_i < c.length) {
             /* If there is a '-' then extract the first number */
             var wk = wks[wks_i].innerHTML;
             var dash_index = wk.indexOf('-');
