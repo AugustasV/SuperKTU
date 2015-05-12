@@ -31,11 +31,9 @@ function createRow(url)
     tr.className = 'H';
 
     var td = document.createElement('td');
-
     td.colSpan = 12;
 
     var iframe = document.createElement('iframe');
-
     iframe.width = '100%';
     iframe.height = 286;
     iframe.src = url;
