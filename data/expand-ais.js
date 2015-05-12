@@ -100,7 +100,11 @@ function fixStyle()
             tr.style = "";
 }
 
-if (expandRows()) {
-    removeRedundantCols();
-    fixStyle();
+function init() {
+    if (expandRows()) {
+        removeRedundantCols();
+        fixStyle();
+    }
 }
+
+init();
