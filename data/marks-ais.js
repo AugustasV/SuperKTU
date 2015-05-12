@@ -37,7 +37,7 @@ var borders = {
         return -1;
     },
     get_border_style: function(cat) {
-        if (cat >= 0 && cat < st.length)
+        if (cat >= 0 && cat < this.st.length)
             return this.st[cat].size + ' ' + this.st[cat].type + ' ' + this.st[cat].color;
         else
             return '';
