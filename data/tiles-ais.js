@@ -27,62 +27,65 @@ var tiles = self.options.tiles;
 /* Hidden array - how hidden ids are distributed */
 var hidden = [];
 
-/* Build the user facing buttons in AIS */
-for (var i = 0; i < numOfTiles; i++)
-    // Left Right Down Up Close
-    titles[i].innerHTML += '<span style="float:right;">' +
-    ' ' + constructButton(i, 0, bLeft) +
-    ' ' + constructButton(i, 1, bRight) +
-    ' ' + constructButton(i, 2, bDown) +
-    ' ' + constructButton(i, 3, bUp) +
-    ' ' + constructButton(i, 4, bClose) + '</span>';
+/* Initialize everything */
+function init() {
+    /* Build the user facing buttons in AIS */
+    for (var i = 0; i < numOfTiles; i++)
+        // Left Right Down Up Close
+        titles[i].innerHTML += '<span style="float:right;">' +
+            ' ' + constructButton(i, 0, bLeft) +
+            ' ' + constructButton(i, 1, bRight) +
+            ' ' + constructButton(i, 2, bDown) +
+            ' ' + constructButton(i, 3, bUp) +
+            ' ' + constructButton(i, 4, bClose) + '</span>';
 
-/* Export the function */
-exportFunction(sendMsg, unsafeWindow, {defineAs: 'sendMsg'});
+    /* Export the function */
+    exportFunction(sendMsg, unsafeWindow, {defineAs: 'sendMsg'});
 
-/* On unload please send the tiles info back */
-window.onbeforeunload = function() {
-    if (tiles !== null)
-        self.port.emit('load', tiles);
-};
+    /* On unload please send the tiles info back */
+    window.onbeforeunload = function() {
+        if (tiles !== null)
+            self.port.emit('load', tiles);
+    };
 
-/* Fill the hidden array, initialize/fix tiles */
-for (i = 0; i < numOfTiles; i++)
-    hidden.push(i);
-
-if (tiles.length != numOfTiles) {
-    tiles = [];
+    /* Fill the hidden array, initialize/fix tiles */
     for (i = 0; i < numOfTiles; i++)
-        tiles.push(new createTile(i, true));
-    self.port.emit('load', tiles);
-}
+        hidden.push(i);
 
-/* Make everything like it was in the tiles array */
-for (i = 0; i < numOfTiles; i++) {
-    while (hidden[i] != tiles[i].id) {
-        var el = findEl(hidden[i]);
-        _switch_Elements(i, el, hidden);
-        _switchContent(i, el);
+    if (tiles.length != numOfTiles) {
+        tiles = [];
+        for (i = 0; i < numOfTiles; i++)
+            tiles.push(new createTile(i, true));
+        self.port.emit('load', tiles);
     }
-}
 
-for (i = 0; i < numOfTiles; i++) {
-    if (!tiles[i].status) {
-        var curVisible = _visTile();
-        var index = hidden.indexOf(tiles[i].id);
-        if (index <= curVisible) {
-            _hideTile(index);
-            _switch_Elements(curVisible, index, hidden);
+    /* Make everything like it was in the tiles array */
+    for (i = 0; i < numOfTiles; i++) {
+        while (hidden[i] != tiles[i].id) {
+            var el = findEl(hidden[i]);
+            _switch_Elements(i, el, hidden);
+            _switchContent(i, el);
         }
     }
+
+    for (i = 0; i < numOfTiles; i++) {
+        if (!tiles[i].status) {
+            var curVisible = _visTile();
+            var index = hidden.indexOf(tiles[i].id);
+            if (index <= curVisible) {
+                _hideTile(index);
+                _switch_Elements(curVisible, index, hidden);
+            }
+        }
+    }
+
+    /* Export reset state function */
+    exportFunction(resetState, unsafeWindow, {defineAs: 'resetState'});
+
+    /* Add the new button */
+    var buttons = document.getElementsByClassName(bClass);
+    buttons[0].innerHTML += '<li><a href="#" target="_self" onclick="window.resetState()">' + self.options.rtext + '</a></li>';
 }
-
-/* Export reset state function */
-exportFunction(resetState, unsafeWindow, {defineAs: 'resetState'});
-
-/* Add the new button */
-var buttons = document.getElementsByClassName(bClass);
-buttons[0].innerHTML += '<li><a href="#" target="_self" onclick="window.resetState()">' + self.options.rtext + '</a></li>';
 
 /* Is the element whose id is id visible? */
 function isVisible(id) {
@@ -316,3 +319,5 @@ function _switch_Elements(a, b, arr) {
 function inside(arr, el) {
     return arr.indexOf(el) != -1;
 }
+
+init();
