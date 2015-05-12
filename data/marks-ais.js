@@ -141,7 +141,6 @@ var parse = {
                 var open_p = txt.indexOf('(');
                 var close_p = txt.indexOf(')');
 
-
                 entry.worth = (parseInt(cols[i+1].innerHTML)) / els.length / 100;
                 entry.name = txt.substring(0, open_p);
                 entry.week = txt.substring(open_p+1, close_p);
