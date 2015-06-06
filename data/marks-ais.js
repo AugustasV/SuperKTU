@@ -55,7 +55,7 @@ var borders = {
 
 var cosmetic = {
     /* Removes task influence line */
-    remove_ti: function(){
+    remove_ti: function() {
         const pos = 'relative';
         var table;
         var tables = document.querySelectorAll('table');
@@ -67,7 +67,7 @@ var cosmetic = {
         }
     },
     /* Add a coefficient line */
-    add_coef: function(){
+    add_coef: function() {
         const cs = 4, ed = 4;
         const mline = 'tr.dtr';
         const clName = 'grd';
@@ -88,9 +88,9 @@ var cosmetic = {
         for (var i = 0; i < cols; i++) {
             var empty_td = document.createElement('td');
 
-            if (i < cols-ed)
+            if (i < cols - ed)
                 empty_td.className = clName;
-            if (i == cols-1)
+            if (i == cols - 1)
                 empty_td.style.borderRight = '1px solid #C0C0C0';
 
             coef_line.appendChild(empty_td);
@@ -110,7 +110,7 @@ var parse = {
         if (ind === -1)
             return '';
         ind += 8;
-        return ti.substring(ind, ind+12);
+        return ti.substring(ind, ind + 12);
     },
     /* HTTP request callback */
     rcb: function() {
@@ -124,7 +124,7 @@ var parse = {
         /* Parse table and put info into this.worth */
         var cols = resp.querySelectorAll('.grd');
 
-        for (var i = 0; i < cols.length; i+=2) {
+        for (var i = 0; i < cols.length; i += 2) {
             /* name and week */
             var els = cols[i].querySelectorAll('nobr');
 
@@ -140,9 +140,9 @@ var parse = {
                 var open_p = txt.indexOf('(');
                 var close_p = txt.indexOf(')');
 
-                entry.worth = (parseInt(cols[i+1].innerHTML)) / els.length / 100;
+                entry.worth = (parseInt(cols[i + 1].innerHTML)) / els.length / 100;
                 entry.name = txt.substring(0, open_p);
-                entry.week = txt.substring(open_p+1, close_p);
+                entry.week = txt.substring(open_p + 1, close_p);
 
                 parse.worth.push(entry);
             }
@@ -178,7 +178,7 @@ var parse = {
         var wks_i = 4, names_i = 1, line_i = 1;
         const res = 2; /* Reserved - at the end two cols date & final mark */
 
-        while (wks_i < wks.length-res && names_i < names.length-res && line_i < c.length) {
+        while (wks_i < wks.length - res && names_i < names.length - res && line_i < c.length) {
             /* If there is a '-' then extract the first number */
             var wk = wks[wks_i].innerHTML;
             var dash_index = wk.indexOf('-');
