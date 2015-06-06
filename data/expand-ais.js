@@ -7,7 +7,7 @@ function getUrl(tr)
     if (links.length < 2)
         return null;
     var url = links[1].href;
-    return url.substring(url.lastIndexOf('/')+1, url.length);
+    return url.substring(url.lastIndexOf('/') + 1, url.length);
 }
 
 /* Remove student plan line */
@@ -62,7 +62,7 @@ function expandRows()
             if (!url)
                 continue;
 
-            tr[i].parentNode.insertBefore(createRow(url), tr[i+1]);
+            tr[i].parentNode.insertBefore(createRow(url), tr[i + 1]);
             expanded = true;
         }
     }
