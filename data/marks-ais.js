@@ -98,7 +98,7 @@ var cosmetic = {
 
         mark_table.appendChild(coef_line);
         cosmetic.ln = coef_line;
-    },
+    }
 };
 
 var parse = {
@@ -197,12 +197,12 @@ var parse = {
 };
 
 var core = {
-    init: function(){
+    init: function() {
         borders.mark_marks();
         cosmetic.remove_ti();
         cosmetic.add_coef();
         parse.dl_page();
-    },
-}
+    }
+};
 
 core.init();
