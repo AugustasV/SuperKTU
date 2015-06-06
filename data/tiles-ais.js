@@ -12,8 +12,8 @@ const bDown = '&#9660;';
 const bUp = '&#9650;';
 const bClose = '&#10005;';
 
-/* Is the addon enabled and is it a hiding op. */
-var enabled, op = 0;
+/* Was the last operation a hiding op. ? */
+var op = 0;
 
 /* Live elements of tiles titles */
 var titles = document.getElementsByTagName(tSelector);
