@@ -63,7 +63,7 @@ function init() {
     for (i = 0; i < numOfTiles; i++) {
         while (hidden[i] != tiles[i].id) {
             var el = findEl(hidden[i]);
-            _switch_Elements(i, el, hidden);
+            hidden.swap(i, el);
             _switchContent(i, el);
         }
     }
@@ -74,7 +74,7 @@ function init() {
             var index = hidden.indexOf(tiles[i].id);
             if (index <= curVisible) {
                 _hideTile(index);
-                _switch_Elements(curVisible, index, hidden);
+                hidden.swap(curVisible, index);
             }
         }
     }
@@ -163,7 +163,7 @@ function hide(id) {
             if (tile.id == hidden[id])
                 tile.status = false;
 
-        _switch_Elements(id, curHidden, hidden);
+        hidden.swap(id, curHidden);
         return true;
     }
     return false;
@@ -190,7 +190,7 @@ function down(id) {
 function switchTiles(id_a, id_b) {
     var ret = _switchContent(id_a, id_b);
     if (ret) {
-        _switch_Elements(id_a, id_b, tiles);
+        tiles.swap(id_a, id_b);
         return true;
     }
     return false;
@@ -268,7 +268,7 @@ function resetState() {
             for (var j = i+1; j < numOfTiles; j++)
                 if (hidden[j] == i) {
                     _really_switch(j, i);
-                    _switch_Elements(j, i, hidden);
+                    hidden.swap(j, i);
                     break;
                 }
         }
@@ -279,7 +279,7 @@ function resetState() {
             for (var j = i+1; j < numOfTiles; j++)
                 if (tiles[j].id == i) {
                     _really_switch(j, i);
-                    _switch_Elements(j, i, tiles);
+                    tiles.swap(j, i);
                     break;
                 }
         }
@@ -308,11 +308,11 @@ function findEl(id) {
     return null;
 }
 
-/* Generic function that switches elements with indexes a and b inside arr */
-function _switch_Elements(a, b, arr) {
-    var temp = arr[b];
-    arr[b] = arr[a];
-    arr[a] = temp;
+Array.prototype.swap = function(a, b) {
+    var temp = this[b];
+    this[b] = this[a];
+    this[a] = temp;
+    return this;
 }
 
 /* Check if el is inside arr */
