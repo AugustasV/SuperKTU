@@ -82,7 +82,6 @@ var cosmetic = {
         var coef_col = document.createElement('td');
         coef_col.colSpan = cs;
         coef_col.innerHTML = self.options.coef_text;
-        coef_col.className = clName;
 
         coef_line.appendChild(coef_col);
 
