@@ -38,7 +38,7 @@ function createRow(url)
     iframe.height = 286;
     iframe.src = url;
     iframe.frameBorder = 0;
-    iframe.style = "border: 1px solid #CFCFCF;";
+    iframe.style = 'border: 1px solid #CFCFCF;';
     iframe.onload = function() {
         remove_sp(iframe.contentDocument);
         remove_sl(iframe.contentDocument);
