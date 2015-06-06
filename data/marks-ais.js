@@ -16,6 +16,9 @@ var borders = {
         good: 8
     },
     get_category: function(grade) {
+        if (!grade)
+            return -1;
+
         if (grade.length > 4 || grade.length === 0)
             return -1;
         if (grade === 'NE')
@@ -44,11 +47,51 @@ var borders = {
 
     },
     mark_marks: function() {
-        var grades = document.querySelectorAll('td.grd');
-        for (var item of grades) {
-            var cat = this.get_category(item.innerHTML);
-            var border_style = this.get_border_style(cat);
-            item.style.border = border_style;
+        var gr_a = document.querySelectorAll('tr.dtr_nb>td');
+        var gr_b = document.querySelectorAll('tr.dtr>td');
+        if (!gr_a.length && gr_b.length) {
+            var i_b = 4;
+            var until = gr_b.length;
+        } else if (gr_a.length && gr_b.length) {
+            var i_a = 4;
+            var i_b = 1;
+            var until = gr_a.length;
+        } else {
+            return;
+        }
+
+        if (i_a && i_b) {
+            for (; i_a < until; i_a++, i_b++) {
+                if (!gr_a[i_a])
+                    continue;
+
+                var cat_a = this.get_category(gr_a[i_a].innerHTML);
+
+                if (gr_b[i_b])
+                    var cat_b = this.get_category(gr_b[i_b].innerHTML);
+                else
+                    var cat_b = -1;
+
+                if (cat_a != -1 && cat_b != -1 && cat_b >= cat_a) {
+                    var border_style = this.get_border_style(cat_b);
+                    if (gr_b[i_b].style)
+                        gr_b[i_b].style.border = border_style;
+                } else {
+                    var border_style = this.get_border_style(cat_a);
+                    if (gr_a[i_a].style)
+                        gr_a[i_a].style.border = border_style;
+                }
+            }
+        } else if (!i_a && i_b) {
+            for (; i_b < until; i_b++) {
+                if (!gr_b[i_b] || !gr_b[i_b].innerHTML)
+                    continue;
+
+                var cat = this.get_category(gr_b[i_b].innerHTML);
+                var border_style = this.get_border_style(cat);
+                if (gr_b[i_b].style)
+                    gr_b[i_b].style.border = border_style;
+            }
         }
     }
 };
