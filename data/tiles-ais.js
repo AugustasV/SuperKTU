@@ -208,7 +208,7 @@ function _getNthElement(id) {
 function _really_switch(id_a, id_b) {
     var el_a = _getNthElement(id_a), el_b = _getNthElement(id_b);
     if (!el_a || !el_b)
-	    return false;
+        return false;
 
     titles[id_a].innerHTML = titles[id_a].innerHTML.replace('sendMsg(' + id_a, 'sendMsg(' + id_b, 'g');
     titles[id_b].innerHTML = titles[id_b].innerHTML.replace('sendMsg(' + id_b, 'sendMsg(' + id_a, 'g');
@@ -265,7 +265,7 @@ function resetState() {
 
     for (var i = 0; i < numOfTiles; i++) {
         while (hidden[i] != i) {
-            for (var j = i+1; j < numOfTiles; j++)
+            for (var j = i + 1; j < numOfTiles; j++)
                 if (hidden[j] == i) {
                     _really_switch(j, i);
                     hidden.swap(j, i);
@@ -276,7 +276,7 @@ function resetState() {
 
     for (var i = 0; i < numOfTiles; i++) {
         while (tiles[i].id != i) {
-            for (var j = i+1; j < numOfTiles; j++)
+            for (var j = i + 1; j < numOfTiles; j++)
                 if (tiles[j].id == i) {
                     _really_switch(j, i);
                     tiles.swap(j, i);
@@ -313,7 +313,7 @@ Array.prototype.swap = function(a, b) {
     this[b] = this[a];
     this[a] = temp;
     return this;
-}
+};
 
 /* Check if el is inside arr */
 function inside(arr, el) {
