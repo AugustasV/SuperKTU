@@ -1,5 +1,5 @@
 # SuperKTU
-A firefox add-on that improves KTU (Kaunas University of Technology) web pages
+A firefox addon that improves KTU (Kaunas University of Technology) web pages
 
 # Features
 * Adds the ability to (re)move tiles in KTU AIS (Academic information system)
