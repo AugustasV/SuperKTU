@@ -51,7 +51,7 @@ var borders = {
             item.style.border = border_style;
         }
     }
-}
+};
 
 var cosmetic = {
     /* Removes task influence line */
@@ -99,7 +99,7 @@ var cosmetic = {
         mark_table.appendChild(coef_line);
         cosmetic.ln = coef_line;
     },
-}
+};
 
 var parse = {
     /* List of zin_nr and a list of name/week/worth in abs value */
@@ -194,7 +194,7 @@ var parse = {
             line_i++;
         }
     }
-}
+};
 
 var core = {
     init: function(){
