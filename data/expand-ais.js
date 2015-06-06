@@ -98,6 +98,18 @@ function fixStyle()
     for (tr of trs)
         if (tr.colSpan === cs && tr.getAttribute('style') === style)
             tr.style = "";
+
+    /* Add "width = 100%" style to the mark table to expand it
+     * and make the expanded iframes adjust to the frameset cols */
+    var table = document.querySelectorAll('table[cellspacing="0"]');
+    if (table[0]) {
+        table[0].style.width = '100%';
+        /* Adjust the cols with "Exams" text to make it more in line */
+        var exams = document.querySelectorAll('td[colspan="8"][align="right"]');
+        for (var el of exams)
+            el.colSpan = 6;
+    }
+
 }
 
 function init() {
