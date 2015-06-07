@@ -72,7 +72,7 @@ var borders = {
                 else
                     var cat_b = -1;
 
-                if (cat_a != -1 && cat_b != -1 && cat_b >= cat_a) {
+                if (cat_a != -1 && cat_b != -1) {
                     var border_style = this.get_border_style(cat_b);
                     if (gr_b[i_b].style)
                         gr_b[i_b].style.border = border_style;
