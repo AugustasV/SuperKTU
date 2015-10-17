@@ -17,5 +17,5 @@ and clicking "Install Add-on From File..." from the dropdown.
 Periodically check this repository for new versions. Maybe in the future
 the addon will be hosted in the AMO so you'll not need to do this.
 
-# Licence
-Public domain
+# License
+The MIT license
