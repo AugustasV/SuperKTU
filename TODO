@@ -1,0 +1,4 @@
+* Get ready for submission to AMO:
+  - Refactor the code
+  - Move a lot of stuff from data/ to lib/
+  - Add tests for new functions in lib/
