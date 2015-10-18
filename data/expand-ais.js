@@ -62,7 +62,7 @@ function expandRows()
             if (!url)
                 continue;
 
-            tr[i].parentNode.insertBefore(createRow(url), tr[i + 1]);
+            tr[i].parentNode.insertBefore(createRow(url), tr[i+1]);
             expanded = true;
         }
     }
