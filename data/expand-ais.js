@@ -69,7 +69,7 @@ function expandRows()
     return expanded;
 }
 
-/* Remove two redundant columns */
+/* Remove two redundant columns from the modules table */
 function removeRedundantCols()
 {
     var title_cells = document.getElementsByClassName('cele12');
@@ -78,9 +78,9 @@ function removeRedundantCols()
     title_cells[5].parentNode.deleteCell(4);
     title_cells[5].parentNode.deleteCell(3);
 
-    var highlight_cells = document.querySelectorAll('tr[onmouseover]');
+    var normal_cells = document.querySelectorAll('tr[onmouseover]');
     var cell;
-    for (cell of highlight_cells) {
+    for (cell of normal_cells) {
         cell.deleteCell(9);
         cell.deleteCell(8);
     }
